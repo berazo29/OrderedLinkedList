@@ -19,22 +19,39 @@ void printList(struct Node* node)
     }
 }
 
+// Count the nodes First Node
+int countNodes(struct Node* head){
+    struct Node* current = head;
+    int count = 0;
+
+    while (current != NULL){
+        count++;
+        current = current->next;
+    }
+    return count;
+}
+
 
 int main() {
+
+    // Data
+    int arr[] = {3,5,7};
+
+    // Initialize
     struct Node* head = NULL;
-    struct Node* node = NULL;
+//    struct Node* second = NULL;
+//    head = (struct Node*)malloc(sizeof(struct Node));
+//    second = (struct Node*)malloc(sizeof(struct Node));
+//    head->data = 5;
+//    head->next = second;
+//    second->data = 4;
+//    second->next = NULL;
 
-    head = (struct Node*)malloc(sizeof(struct Node));
-    node = (struct Node*)malloc(sizeof(struct Node));
+    int length = countNodes(head);
 
-    head->data = 3;
-    head->next = node;
-
-    node->data = 5;
+    printf("Nodes = %d\n", length);
 
     printList(head);
-    printf("\n");
-    printList(node);
 
 
 
