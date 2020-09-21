@@ -3,4 +3,4 @@ project(OrderedLinkList C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(OrderedLinkList main.c)
+add_executable(OrderedLinkList main.c linklist.h)
