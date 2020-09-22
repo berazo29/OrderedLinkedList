@@ -8,27 +8,35 @@ struct Node{
 };
 
 // Print the LinkList
-void printList(struct Node* node)
-{
-    if (node == NULL){
+void printList( struct Node* node ){
+    if ( node == NULL ){
         printf("EMPTY\n");
     }
-    while (node != NULL) {
+    while ( node != NULL ){
         printf("%d ", node->data);
         node = node->next;
     }
 }
 
 // Count the nodes First Node
-int countNodes(struct Node* head){
+int countNodes( struct Node* head ){
     struct Node* current = head;
     int count = 0;
 
-    while (current != NULL){
+    while ( current != NULL ){
         count++;
         current = current->next;
     }
+
     return count;
+}
+
+// InsertNode
+void insertNode( struct Node* node, int index, int x ){
+
+    // Insert first node
+    // Insert at given position
+    // Insert
 }
 
 
@@ -40,7 +48,7 @@ int main() {
     // Initialize
     struct Node* head = NULL;
 //    struct Node* second = NULL;
-//    head = (struct Node*)malloc(sizeof(struct Node));
+    head = (struct Node*)malloc(sizeof(struct Node));
 //    second = (struct Node*)malloc(sizeof(struct Node));
 //    head->data = 5;
 //    head->next = second;
