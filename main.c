@@ -49,7 +49,7 @@ void insertNode( struct Node** node, int location, int data ){
 
     // This is use for skip insertion
     if ( !newNode || location == 0){
-	free(newNode);    
+	    free(newNode);
         return;
     }
 
@@ -119,7 +119,43 @@ void deleteNode( struct Node** node, int location ) {
 
 }
 
-// Test
+// Search data
+int searchNode(int key, struct Node* node){
+
+    // Return Zero not found
+    int location = 0;
+    struct Node* ptr = node;
+
+    while ( ptr != NULL){
+
+        if (ptr->data == key){
+            location++;
+            break;
+        }
+        location++;
+
+        ptr = ptr->next;
+
+        if ( ptr == NULL ){
+            location = 0;
+            break;
+        }
+    }
+
+    return location;
+}
+
+//Sort linked list
+void sort(struct Node* node){
+
+    if ( node == NULL){
+        return;
+    }
+
+    //
+}
+
+// TEST
 void testLinkedList(){
 
     // Initialize
@@ -151,11 +187,10 @@ void testLinkedList(){
 
 }
 
-
 int main() {
 
-    // Test the code;
-    testLinkedList();
+    struct Node* head = NULL;
+
 
     return EXIT_SUCCESS;
 }
