@@ -31,29 +31,58 @@ int countNodes( struct Node* head ){
     return count;
 }
 
-// InsertNode
-void insertNode( struct Node* node, int index, int x ){
+// Insert node at any position from 1 to any location
+void insertNode( struct Node** node, int location, int data ){
 
-    // Insert first node
-    // Insert at given position
-    // Insert
+    // Check for validity
+    int i = 1;
+    struct Node* prevNode;
+    struct Node* nextNode;
+    struct Node* newNode = ( struct Node* )malloc( sizeof( struct Node ) );
+
+    // This is use for skip insertion
+    if ( !newNode || location == 0){
+        //printf("M error"); // Memory error
+        return;
+    }
+
+    newNode->data = data;
+    nextNode = *node;
+
+    // Insert in the beginning
+    if( location == 1 || nextNode == NULL ){
+        newNode->next = *node;
+        *node = newNode;
+    } else{
+        while(nextNode != NULL && (i < location ) ){
+            i++;
+            prevNode = nextNode;
+            nextNode = nextNode->next;
+        }
+        newNode->next = prevNode->next;
+        prevNode->next = newNode;
+    }
+
 }
 
 
 int main() {
 
     // Data
-    int arr[] = {3,5,7};
 
     // Initialize
     struct Node* head = NULL;
 //    struct Node* second = NULL;
-    head = (struct Node*)malloc(sizeof(struct Node));
-//    second = (struct Node*)malloc(sizeof(struct Node));
-//    head->data = 5;
-//    head->next = second;
-//    second->data = 4;
-//    second->next = NULL;
+    insertNode(&head, 0,1);
+    insertNode(&head, 1,2);
+
+    insertNode(&head, 2, 4);
+    insertNode(&head, 0, 7);
+    insertNode(&head, 1, 5);
+    insertNode(&head, 10, 10);
+
+
+    printf("head = %d\n", head->data);
 
     int length = countNodes(head);
 
