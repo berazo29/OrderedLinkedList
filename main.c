@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//  Data Structure LinkList Node
+//  Data Structure Linked List Node
 struct Node{
     int data;
     struct Node* next;
@@ -10,19 +10,26 @@ struct Node{
 // Print the LinkList
 void printList( struct Node* node ){
     if ( node == NULL ){
-        printf("EMPTY\n");
+        printf("empty\n");
     }
     while ( node != NULL ){
+
         printf("%d ", node->data);
         node = node->next;
+        if (node == NULL){
+            printf("\n");
+        }
     }
 }
 
 // Count the nodes First Node
 int countNodes( struct Node* head ){
+
+    // Initialize head and counter
     struct Node* current = head;
     int count = 0;
 
+    // Count the nodes
     while ( current != NULL ){
         count++;
         current = current->next;
@@ -42,7 +49,6 @@ void insertNode( struct Node** node, int location, int data ){
 
     // This is use for skip insertion
     if ( !newNode || location == 0){
-        //printf("M error"); // Memory error
         return;
     }
 
@@ -53,45 +59,102 @@ void insertNode( struct Node** node, int location, int data ){
     if( location == 1 || nextNode == NULL ){
         newNode->next = *node;
         *node = newNode;
+
     } else{
+
+        // Insert at the location given
         while(nextNode != NULL && (i < location ) ){
             i++;
             prevNode = nextNode;
             nextNode = nextNode->next;
         }
+
         newNode->next = prevNode->next;
         prevNode->next = newNode;
     }
 
 }
 
+// Delete node at any location
+void deleteNode( struct Node** node, int location ) {
 
-int main() {
+    int i = 1;
+    struct Node* prevNode;
+    struct Node* nextNode;
 
-    // Data
+    // If linked list empty just return
+    if ( *node == NULL || location == 0){
+        return;
+    }
+
+    nextNode = *node;
+
+    //Delete the first node
+    if ( location == 1 ){
+        *node = (*node)->next;
+        free(nextNode);
+        return;
+
+    } else{
+
+        // Delete from any other location
+        while ( nextNode != NULL && ( i < location ) ){
+            i++;
+             prevNode = nextNode;
+             nextNode = nextNode->next;
+        }
+
+        // Delete last node
+        if ( nextNode == NULL ){
+            // Do nothing
+            //printf("location does not exist\n");
+            return;
+
+        } else{
+            prevNode->next = nextNode->next;
+            free(nextNode);
+        }
+    }
+
+}
+
+// Test
+void testLinkedList(){
 
     // Initialize
     struct Node* head = NULL;
-//    struct Node* second = NULL;
-    insertNode(&head, 0,1);
-    insertNode(&head, 1,2);
 
-    insertNode(&head, 2, 4);
-    insertNode(&head, 0, 7);
-    insertNode(&head, 1, 5);
-    insertNode(&head, 10, 10);
-
-
-    printf("head = %d\n", head->data);
-
-    int length = countNodes(head);
-
-    printf("Nodes = %d\n", length);
-
+    // TEST insert nodes in linked list
+    insertNode(&head, 0,0); // empty
+    printList(head);
+    insertNode(&head, 10,1); // 1
+    printList(head);
+    insertNode(&head, 10,2); // 1 2
+    printList(head);
+    insertNode(&head, 1,3); // 3 1 2
     printList(head);
 
+    // TEST delete nodes in linked list
+    deleteNode(&head , 10); // 3 1 2
+    printList(head);
+    deleteNode(&head , 0); // 3 1 2
+    printList(head);
+    deleteNode(&head , 2); // 3 2
+    printList(head);
+    deleteNode(&head , 2); // 3
+    printList(head);
+    deleteNode(&head , 1); // empty
+    printList(head);
+    deleteNode(&head , 1); // empty
+    printList(head);
+
+}
 
 
+int main() {
 
-    return 0;
+    // Test the code;
+    testLinkedList();
+
+    return EXIT_SUCCESS;
 }
