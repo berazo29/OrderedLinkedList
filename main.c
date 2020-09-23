@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 //  Data Structure Linked List Node
 struct Node{
@@ -145,16 +146,6 @@ int searchNode(int key, struct Node* node){
     return location;
 }
 
-//Sort linked list
-void sort(struct Node* node){
-
-    if ( node == NULL){
-        return;
-    }
-
-    //
-}
-
 // TEST
 void testLinkedList(){
 
@@ -187,10 +178,48 @@ void testLinkedList(){
 
 }
 
-int main() {
+int main(int argc, char* argv[argc+1]) {
 
     struct Node* head = NULL;
+    // File name from the arguments
+    if ( argc != 2 ){
+        return EXIT_SUCCESS;
+    }
 
+    // Declare the read and write pointers
+    FILE* fp;
+
+    fp = fopen(argv[1], "r");
+
+    // Check if the file unable to open
+    if (fp == NULL){
+        printf("Unable to read the file \n");
+        return EXIT_SUCCESS;
+    }
+
+    // Get the number from file
+    char action[10];
+    int data;
+    int delete;
+    int insert;
+
+    while (fscanf(fp, "%s %d\n",action, &data ) != EOF ){
+        delete = strcmp( action, "DELETE" );
+        insert = strcmp( action, "INSERT" );
+        if ( delete == 0 ){
+            printf("DELETE\n");
+
+        } else if( insert == 0 ){
+            printf("INSERT\n");
+
+        } else{
+            printf("ERROR\n");
+
+        }
+    }
+
+    // Close the read file
+    fclose(fp);
 
     return EXIT_SUCCESS;
 }
