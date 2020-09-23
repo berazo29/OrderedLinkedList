@@ -203,13 +203,13 @@ int main(int argc, char* argv[argc+1]) {
     int num;
     int insert;
     int delete;
-    int x = 0;
 
     while (fscanf(fp, "%s %d\n",action, &num ) != EOF ){
+
         insert = strcmp( action, "INSERT" );
         delete = strcmp( action, "DELETE" );
+
         if ( insert == 0 ){
-            printf("INSERT\n");
 
             // Insert first node to the left
             if ( head == NULL || num < head->data ){
@@ -225,19 +225,19 @@ int main(int argc, char* argv[argc+1]) {
 
                 } else{
                     while( ptr != NULL){
-
+                        int loc = 0;
                         if ( ptr->data == num){
                             break;
                         }
 
                         if (ptr->data > num){
-                            x = searchNode(ptr->data,head);
-                            insertNode(&head, x, num);
+                            loc = searchNode(ptr->data,head);
+                            insertNode(&head, loc, num);
                             break;
                         }
                         if ( ptr->next == NULL){
-                            x = searchNode(ptr->data,head);
-                            insertNode(&head, x+1, num);
+                            loc = searchNode(ptr->data,head);
+                            insertNode(&head, loc+1, num);
                             break;
                         }
                         ptr = ptr->next;
@@ -247,9 +247,9 @@ int main(int argc, char* argv[argc+1]) {
 
 
         } else if( delete == 0 ){
-            printf("DELETE\n");
-            if ( head == NULL){
-
+            if ( head != NULL){
+                int loc = searchNode(num, head);
+                deleteNode(&head, loc);
             }
 
         } else{
