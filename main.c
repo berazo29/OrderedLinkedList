@@ -11,7 +11,7 @@ struct Node{
 // Print the LinkList
 void printList( struct Node* node ){
     if ( node == NULL ){
-        printf("empty\n");
+        printf("EMPTY\n");
     }
     while ( node != NULL ){
 
@@ -213,31 +213,31 @@ int main(int argc, char* argv[argc+1]) {
 
             // Insert first node to the left
             if ( head == NULL || num < head->data ){
-                insertNode(&head, 1, num);
-            } else if(num == head->data ){
+                insertNode( &head, 1, num );
+            } else if( num == head->data ){
                 // Do nothing
             } else{
                 // Traverse the linked list
                 ptr = head;
 
                 if( ptr->next == NULL){
-                    insertNode(&head, 2, num);
+                    insertNode( &head, 2, num );
 
                 } else{
-                    while( ptr != NULL){
+                    while( ptr != NULL ){
                         int loc = 0;
-                        if ( ptr->data == num){
+                        if ( ptr->data == num ){
                             break;
                         }
 
-                        if (ptr->data > num){
-                            loc = searchNode(ptr->data,head);
-                            insertNode(&head, loc, num);
+                        if ( ptr->data > num ){
+                            loc = searchNode( ptr->data,head );
+                            insertNode( &head, loc, num );
                             break;
                         }
                         if ( ptr->next == NULL){
-                            loc = searchNode(ptr->data,head);
-                            insertNode(&head, loc+1, num);
+                            loc = searchNode( ptr->data, head );
+                            insertNode( &head, loc+1, num);
                             break;
                         }
                         ptr = ptr->next;
@@ -247,16 +247,16 @@ int main(int argc, char* argv[argc+1]) {
 
 
         } else if( delete == 0 ){
-            if ( head != NULL){
-                int loc = searchNode(num, head);
-                deleteNode(&head, loc);
+            if ( head != NULL ){
+                int loc = searchNode( num, head );
+                deleteNode( &head, loc );
             }
 
         } else{
-            printf("ERROR\n");
+            printf("ERROR ACTION\n");
 
         }
-        printList(head);
+        printList( head );
     }
 
     // Close the read file
