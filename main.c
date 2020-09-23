@@ -181,6 +181,7 @@ void testLinkedList(){
 int main(int argc, char* argv[argc+1]) {
 
     struct Node* head = NULL;
+    struct Node* ptr = NULL;
     // File name from the arguments
     if ( argc != 2 ){
         return EXIT_SUCCESS;
@@ -199,23 +200,63 @@ int main(int argc, char* argv[argc+1]) {
 
     // Get the number from file
     char action[10];
-    int data;
-    int delete;
+    int num;
     int insert;
+    int delete;
+    int x = 0;
 
-    while (fscanf(fp, "%s %d\n",action, &data ) != EOF ){
-        delete = strcmp( action, "DELETE" );
+    while (fscanf(fp, "%s %d\n",action, &num ) != EOF ){
         insert = strcmp( action, "INSERT" );
-        if ( delete == 0 ){
-            printf("DELETE\n");
-
-        } else if( insert == 0 ){
+        delete = strcmp( action, "DELETE" );
+        if ( insert == 0 ){
             printf("INSERT\n");
+
+            // Insert first node to the left
+            if ( head == NULL || num < head->data ){
+                insertNode(&head, 1, num);
+            } else if(num == head->data ){
+                // Do nothing
+            } else{
+                // Traverse the linked list
+                ptr = head;
+
+                if( ptr->next == NULL){
+                    insertNode(&head, 2, num);
+
+                } else{
+                    while( ptr != NULL){
+
+                        if ( ptr->data == num){
+                            break;
+                        }
+
+                        if (ptr->data > num){
+                            x = searchNode(ptr->data,head);
+                            insertNode(&head, x, num);
+                            break;
+                        }
+                        if ( ptr->next == NULL){
+                            x = searchNode(ptr->data,head);
+                            insertNode(&head, x+1, num);
+                            break;
+                        }
+                        ptr = ptr->next;
+                    }
+                }
+            }
+
+
+        } else if( delete == 0 ){
+            printf("DELETE\n");
+            if ( head == NULL){
+
+            }
 
         } else{
             printf("ERROR\n");
 
         }
+        printList(head);
     }
 
     // Close the read file
