@@ -44,8 +44,8 @@ void insertNode( struct Node** node, int location, int data ){
 
     // Check for validity
     int i = 1;
-    struct Node* prevNode;
-    struct Node* nextNode;
+    struct Node* prevNode; //q
+    struct Node* nextNode; //p
     struct Node* newNode = ( struct Node* )malloc( sizeof( struct Node ) );
 
     // This is use for skip insertion
@@ -58,8 +58,8 @@ void insertNode( struct Node** node, int location, int data ){
     nextNode = *node;
 
     // Insert in the beginning
-    if( location == 1 || nextNode == NULL ){
-        newNode->next = *node;
+    if( location == 1 ){
+        newNode->next = nextNode;
         *node = newNode;
 
     } else{
@@ -71,8 +71,8 @@ void insertNode( struct Node** node, int location, int data ){
             nextNode = nextNode->next;
         }
 
-        newNode->next = prevNode->next;
         prevNode->next = newNode;
+        newNode->next = nextNode;
     }
 
 }
@@ -81,8 +81,8 @@ void insertNode( struct Node** node, int location, int data ){
 void deleteNode( struct Node** node, int location ) {
 
     int i = 1;
-    struct Node* prevNode;
-    struct Node* nextNode;
+    struct Node* prevNode;//q
+    struct Node* nextNode;//p
 
     // If linked list empty just return
     if ( *node == NULL || location == 0){
@@ -110,8 +110,6 @@ void deleteNode( struct Node** node, int location ) {
         if ( nextNode == NULL ){
             // Do nothing
             //printf("location does not exist\n");
-            return;
-
         } else{
             prevNode->next = nextNode->next;
             free(nextNode);
@@ -144,6 +142,18 @@ int searchNode(int key, struct Node* node){
     }
 
     return location;
+}
+
+void DestroyLikedList( struct Node** head ){
+    struct Node* temp;
+    struct Node* iterator;
+    iterator = *head;
+    while (iterator){
+        temp = iterator->next;
+        free(iterator);
+        iterator = temp;
+    }
+    *head = NULL;
 }
 
 // TEST
@@ -260,6 +270,7 @@ int main(int argc, char* argv[argc+1]) {
     }
 
     // Close the read file
+    DestroyLikedList(&head);
     fclose(fp);
 
     return EXIT_SUCCESS;
