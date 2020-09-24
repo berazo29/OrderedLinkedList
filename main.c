@@ -44,8 +44,8 @@ void insertNode( struct Node** node, int location, int data ){
 
     // Check for validity
     int i = 1;
-    struct Node* prevNode; //q
-    struct Node* nextNode; //p
+    struct Node* prevNode;
+    struct Node* nextNode;
     struct Node* newNode = ( struct Node* )malloc( sizeof( struct Node ) );
 
     // This is use for skip insertion
