@@ -50,7 +50,6 @@ void insertNode( struct Node** node, int location, int data ){
 
     // This is use for skip insertion
     if ( !newNode || location == 0){
-	    free(newNode);
         return;
     }
 
